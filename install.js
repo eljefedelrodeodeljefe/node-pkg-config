@@ -11,26 +11,32 @@ var path = require('path')
 
 /**
 * This is the install script which runs on 'npm pre-install'.
-* Not much magic. It just `./configure`s, `make && make install`s inside cpython directory.
-* Most of the code here presents the users output and errors into the console and pretty-prints stuff.
+* Not much magic. It just `./configure`s, `make`
 *
 */
 var filename = 'deps/pkg-config-0.28.tar.gz'
 var pathTo = 'node_modules/pkg_config/pkg-config-0.28'
 // extracting the directory
-fs.createReadStream(filename).pipe(gunzip()).pipe(tar.extract('./node_modules/pkg_config'))
+fs.createReadStream(filename).pipe(gunzip()).pipe(tar.extract('./node_modules/pkg_config')).on('finish', () => {
+  console.log('\nDone extracting pkg-config\n');
+  ee.emit('done:extract')
+})
 
-var configureOpts = [
-  '--prefix=' + path.join(__dirname, pathTo),
-  '--disable-debug',
-  '--disable-host-tool',
-  '--with-internal-glib'
-]
+ee.on('done:extract', function () {
+  var configureOpts = [
+    '--prefix=' + path.join(__dirname, 'node_modules/pkg_config/build'),
+    '--disable-debug',
+    '--disable-host-tool',
+    '--with-internal-glib'
+  ]
 
-var configure = spawn('./configure', configureOpts, {cwd: pathTo, stdio: 'inherit'})
+  var configure = spawn('./configure', configureOpts, {cwd: pathTo, stdio: 'inherit'})
 
-configure.on('close', function (code) {
-  ee.emit('done:configure')
+
+  configure.on('close', function (code) {
+    console.log('\nDone running `configure`\n');
+    ee.emit('done:configure')
+  })
 })
 
 ee.on('done:configure', function () {
@@ -38,10 +44,11 @@ ee.on('done:configure', function () {
   var make = spawn('make', makeOpts, {cwd: pathTo, stdio: 'inherit'})
 
   make.on('close', function (code) {
+    console.log('\nDone running `make`\n');
     ee.emit('done:make')
   })
 })
 
-// ee.on('done:make', function () {
-//   var makeInstall = spawn('make', ['install'], {cwd: pathTo, stdio: 'inherit'}) // install to build dir
-// })
+ee.on('done:make', function () {
+  var makeInstall = spawn('make', ['install'], {cwd: pathTo, stdio: 'inherit'}) // install to build dir
+})
