@@ -19,3 +19,5 @@ npm install --save node-pkg-config
 ## License
 
 MIT
+
+Ships with [Pkg-Config](git://anongit.freedesktop.org/pkg-config) under GPLv2
