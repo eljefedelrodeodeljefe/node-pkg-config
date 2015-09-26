@@ -2,5 +2,7 @@ language: node_js
 node_js:
   - 0.12
   - 4.0
+before_script:
+  - npm install -g istanbul standard
 script: "npm test"
 after_script: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
