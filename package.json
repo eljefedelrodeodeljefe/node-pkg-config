@@ -13,14 +13,14 @@
     "inspect": "jsinspect",
     "pretest": "npm run lint && npm run inspect",
     "test": "istanbul cover test/test.js && ./node_modules/.bin/tape test/test.js",
-    "posttest": "istanbul check-coverage --statements 90 --branches 90 --functions 100 --lines 90 && npm run coveralls",
+    "posttest": "istanbul check-coverage --statements 90 --branches 90 --functions 100 --lines 90",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf coverage"
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.org"
   },
   "author": "Robert Jefe Lindstaedt <robert.lindstaedt@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "coveralls": "^2.11.4",
     "eslint": "^1.4.1",
