@@ -1,7 +1,7 @@
 {
   "name": "node-pkg-config",
   "description": "A helper tool for compiling native applications and libraries.",
-  "version": "0.1.0",
+  "version": "0.1.1-alpha",
   "dependencies": {
     "gunzip-maybe": "^1.2.1",
     "tar-fs": "^1.8.1"
