@@ -18,7 +18,7 @@ var filename = 'deps/pkg-config-0.28.tar.gz'
 var pathTo = 'node_modules/pkg_config/pkg-config-0.28'
 // extracting the directory
 fs.createReadStream(filename).pipe(gunzip()).pipe(tar.extract('./node_modules/pkg_config')).on('finish', () => {
-  console.log('\nDone extracting pkg-config\n');
+  console.log('\nDone extracting pkg-config\n')
   ee.emit('done:extract')
 })
 
@@ -32,9 +32,8 @@ ee.on('done:extract', function () {
 
   var configure = spawn('./configure', configureOpts, {cwd: pathTo, stdio: 'inherit'})
 
-
   configure.on('close', function (code) {
-    console.log('\nDone running `configure`\n');
+    console.log('\nDone running `configure`\n')
     ee.emit('done:configure')
   })
 })
@@ -44,11 +43,14 @@ ee.on('done:configure', function () {
   var make = spawn('make', makeOpts, {cwd: pathTo, stdio: 'inherit'})
 
   make.on('close', function (code) {
-    console.log('\nDone running `make`\n');
+    console.log('\nDone running `make`\n')
     ee.emit('done:make')
   })
 })
 
 ee.on('done:make', function () {
   var makeInstall = spawn('make', ['install'], {cwd: pathTo, stdio: 'inherit'}) // install to build dir
+  makeInstall.on('close', function (code) {
+    console.log('\nDone running `make install`\n')
+  })
 })

@@ -8,6 +8,6 @@ test.createStream()
 test((t) => {
   t.plan(2)
   var pkg = require('../index')
-  t.ok(pkg.config())
-  t.ok(pkg.pkgConfig())
+  t.ok(pkg.libs('./test/fixtures/opencv.pc'))
+  t.ok(pkg.cflags('./test/fixtures/opencv.pc'))
 })

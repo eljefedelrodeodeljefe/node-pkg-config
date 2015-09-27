@@ -4,7 +4,6 @@
   "version": "0.1.0",
   "dependencies": {
     "gunzip-maybe": "^1.2.1",
-    "split": "^1.0.0",
     "tar-fs": "^1.8.1"
   },
   "scripts": {
@@ -12,7 +11,7 @@
     "inspect": "jsinspect",
     "pretest": "npm run lint && npm run inspect",
     "test": "istanbul cover test/test.js && ./node_modules/.bin/tape test/test.js",
-    "posttest": "istanbul check-coverage --statements 90 --branches 90 --functions 100 --lines 90",
+    "posttest": "istanbul check-coverage --statements 80 --branches 80 --functions 80 --lines 80",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf coverage"
   },
   "publishConfig": {
