@@ -3,9 +3,8 @@
   "description": "A helper tool for compiling native applications and libraries.",
   "version": "0.1.0",
   "dependencies": {
-    "bindings": "^1.2.1",
     "gunzip-maybe": "^1.2.1",
-    "nan": "^2.0.9",
+    "split": "^1.0.0",
     "tar-fs": "^1.8.1"
   },
   "scripts": {
