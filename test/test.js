@@ -5,7 +5,7 @@ test.createStream()
   .pipe(tapSpec())
   .pipe(process.stdout)
 
-test((t) => {
+test(function (t) {
   t.plan(2)
   var pkg = require('../index')
   t.ok(pkg.libs('./test/fixtures/opencv.pc'))
